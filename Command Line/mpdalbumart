@@ -1,5 +1,5 @@
 #!/bin/bash
-MUSICFOLDER="/Path/to/MPD/Music/Folder"
+MUSICFOLDER="/Path/to/MPD/Music/Folder/"
 
 function loopNextSong() {
 	STATUS="$(mpc | tail -n 2)"
@@ -14,7 +14,7 @@ function loopNextSong() {
 		COVERPATH="$(ls /tmp/covers | head -n 1)"
 		echo "Cover file name: $COVERPATH"
 		SONGNAME="$(mpc --format "%file%" | head -1)"
-		SONGNAME="$(echo "/Volumes/Storage/OSX Folders/Music/$SONGNAME")"
+		SONGNAME="$(echo "$MUSICFOLDER$SONGNAME")"
 		SONGNAME="$(basename "$SONGNAME")"
 		SONGNAME="${SONGNAME%.*}"
 		echo "Song name: $SONGNAME"
