@@ -1,0 +1,30 @@
+#!/bin/bash
+MUSICFOLDER="/Path/to/MPD/Music/Folder"
+
+function loopNextSong() {
+	STATUS="$(mpc | tail -n 2)"
+	STATUS=${STATUS#*[}
+	STATUS=${STATUS%%]*}
+	echo $STATUS
+	if [[ "$STATUS" == "playing" ]]; then
+		sleep 1
+		CURRENTPATH="$MUSICFOLDER$(mpc --format "%file%" | head -1)"
+		mkdir /tmp/covers
+		eyed3 "$CURRENTPATH" --write-images /tmp/covers/
+		COVERPATH="$(ls /tmp/covers | head -n 1)"
+		echo "Cover file name: $COVERPATH"
+		SONGNAME="$(mpc --format "%file%" | head -1)"
+		SONGNAME="$(echo "/Volumes/Storage/OSX Folders/Music/$SONGNAME")"
+		SONGNAME="$(basename "$SONGNAME")"
+		SONGNAME="${SONGNAME%.*}"
+		echo "Song name: $SONGNAME"
+		kissnotificationmusic "/tmp/covers/$COVERPATH" " " "$SONGNAME" 3 "none" 3 true
+		sleep 1
+		rm -r /tmp/covers/
+		mpc current --wait
+	fi
+
+	loopNextSong
+}
+
+loopNextSong

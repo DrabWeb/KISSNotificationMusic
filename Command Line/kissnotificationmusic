@@ -1,0 +1,35 @@
+#!/bin/bash
+# $1 - Image (350x150)
+# $2 - Header (The bold text)
+# $3 - Info (The info text below the header)
+# $4 - Duration (How many seconds the dialog should stay up)
+# $5 - Sound (What sound to play)
+# $6 - Corner (The corner it should be in (1 == Top Left, 2 == Top Right, 3 == Bottom Left, 4 == Bottom Right)
+# $7 - Square - If the dialog should be 350x350(true/false)
+
+# Set all the variables
+IMAGE=$1
+HEADER=$2
+INFO=$3
+DURATION=$4
+SOUND=$5
+CORNER=$6
+SQUARE=$7
+
+# Delete the old /tmp/kissnotification, if it exists
+rm -r /tmp/kissnotification
+
+# Get a reference to the path of the appplication bundle for KISSNotification
+APPLICATIONPATH="/Volumes/Storage/Applications/Selftilities/KISSNotification.app"
+
+# Write all the values into /tmp/kissnotification
+echo -e "$IMAGE\n$HEADER\n$INFO\n$DURATION\n$SOUND\n$CORNER\n$SQUARE" > "/tmp/kissnotification"
+
+# Open a new instance of the app without focusing it
+open -n -g "$APPLICATIONPATH"
+
+# Sleep for 1 second
+sleep 1
+
+# Delete the /tmp/kissnotification file, just so we dont possibly break things
+rm -r /tmp/kissnotification
