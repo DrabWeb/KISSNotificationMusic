@@ -1,5 +1,6 @@
 # KISSNotificationMusic
-This is teh same as KISSNotification except it has a few differences like teh square notification look.
+<img src="https://raw.githubusercontent.com/DrabWeb/KISSNotificationMusic/master/Screenshot.png" width="100%">
+This is the same as KISSNotification except it has a few differences like the square notification look.
 
 ## Usage
 Change MUSICFOLDER in ```Command Line/mpdalbumart``` to your MPD music folder
